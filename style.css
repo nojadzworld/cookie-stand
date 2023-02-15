@@ -1,0 +1,32 @@
+* 
+
+
+header {
+  font-family: "Kanit",sans-serif;
+}
+
+body {
+  background-color: blanchedalmond;
+}
+
+.topfish {
+width: 30% ;
+
+}
+
+.topfish2 {
+  width: 30% ;
+}
+
+h1 {
+text-align: center;
+background-color:chocolate;
+color: black;
+font-size: 40px;
+}
+
+ .locs{
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  color:darkgreen
+
+}
