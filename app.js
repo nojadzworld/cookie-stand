@@ -70,10 +70,10 @@ function tableheader(){
 }
 
 
+
 function tablefooter(){
   let tfootElem = document.createElement('tfoot');
   table.appendChild(tfootElem);
-
   let hoursTotal = document.createElement('td');
   hoursTotal.textContent = 'Total';
   tfootElem.appendChild(hoursTotal);
@@ -83,11 +83,12 @@ function tablefooter(){
 
     let Total=0;
     for(let j=0; j < cookieList.length; j++){
+
       Total+=cookieList[j].cookiesBought[i];
       totalofTotals+=cookieList[j].cookiesBought[i];
 
     }
-    console.log(cookieList);
+
     let tfootElem2 = document.createElement('td');
     tfootElem2.textContent = Total;
     tfootElem.appendChild(tfootElem2);
@@ -107,19 +108,18 @@ table.appendChild(tablebody);
 
 Cookierun.prototype.render = function () {
   this.generateCookies();
-  
-  
+
   // **** TABLE RENDERING ****** table, rows, table cells
 
-  
+
   let row1 = document.createElement('tr');
   tablebody.appendChild(row1);
-  
+
   let locationName = document.createElement('td');
   locationName.textContent = this.name;
   row1.appendChild(locationName);
 
-  
+
   for (let i = 0; i < hours.length; i++) {
     let tdElem = document.createElement('td');
     tdElem.textContent = this.cookiesBought[i];
@@ -134,6 +134,37 @@ Cookierun.prototype.render = function () {
 };
 
 
+let myForm = document.getElementById('my-form');
+
+function handleFormSubmit(event){
+  event.preventDefault();
+  let tfooter = document.querySelector('tfoot');
+
+  let city = event.target.city.value;
+  let min = parseInt(event.target.min.value);
+  let max = parseInt(event.target.max.value);
+  let avg = parseFloat(event.target.avg.value);
+  console.log(min, max, avg);
+  let myForm = new Cookierun(city, min, max, avg);
+  cookieList.push(myForm);
+  // myForm.reset();
+  event.target.city.value=null;
+  event.target.min.value=null;
+  event.target.max.value=null;
+  event.target.avg.value=null;
+  console.log(typeof min);
+  tfooter.innerHTML ='';
+  myForm.generateCookies();
+  myForm.render();
+  tablefooter();
+
+  
+ 
+
+}
+
+
+
 
 // ********** EXECUTABLE CODE **********
 let seattle = new Cookierun('Seattle', 23, 65, 6.3);
@@ -145,7 +176,6 @@ let lima = new Cookierun('Lima', 2,16,4.6);
 cookieList.push(seattle,tokyo,dubai,paris,lima);
 
 
-console.log(cookieList);
 
 function renderAll(){{
   for(let i=0; i < cookieList.length; i++){
@@ -153,12 +183,18 @@ function renderAll(){{
     cookieList[i].render();
 
   }
+  tableheader();
+
+  tablefooter();
 
 }
 }
-tableheader();
+
+
 renderAll();
-tablefooter();
+
+
+myForm.addEventListener('submit', handleFormSubmit);
 // ********** OBJECT LITERALS **********
 // let articleElem = document.createElement('article')
 // hourlyTotals.appendChild(articleElem);
